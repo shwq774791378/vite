@@ -1,22 +1,19 @@
-import module from 'node:module'
 import { defineConfig } from 'vite'
 
+const noExternal = ['@vitejs/test-require-external-cjs']
 export default defineConfig({
   ssr: {
-    noExternal: ['@vitejs/require-external-cjs'],
-    external: ['@vitejs/external-cjs'],
+    noExternal,
+    external: ['@vitejs/test-external-cjs'],
     optimizeDeps: {
-      disabled: false
-    }
+      include: noExternal,
+    },
   },
   build: {
     target: 'esnext',
     minify: false,
     rollupOptions: {
-      external: ['@vitejs/external-cjs']
+      external: ['@vitejs/test-external-cjs'],
     },
-    commonjsOptions: {
-      include: []
-    }
-  }
+  },
 })
